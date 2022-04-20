@@ -1,7 +1,7 @@
 #Requerimiento funcional: Registro de pensamientos.
 #Se usara un archivo en el cual cada entrada nueva sera registro nuevo
 
-file = open("Pensamientos.txt") #Escribir la ruta
+file = open("Pensamientos.txt", "w") #Escribir la ruta
 file.write("")
 print("Hola! Porfavor decide que deseas hacer: /n 1. Escribir nueva entrada /n 2. Ver entradas anteriores")
 des = input()
