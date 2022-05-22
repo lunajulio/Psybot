@@ -1,6 +1,6 @@
 from tkinter import *
 from tkinter.tix import TEXT
-
+import os
 
 from click import pass_context
 
@@ -47,15 +47,15 @@ class MasterPanel:
                             
 
         # Boton de Test
-        ansiedad = Button(self.window, text="Test", font=FONT_BOLD)
+        ansiedad = Button(self.window, text="Test", font=FONT_BOLD, command=lambda: self.test(None))
         ansiedad.place(relx=0.814, rely=0.29, relheight=0.15, relwidth=0.18)
 
         # Boton de Gratitud
-        depresion = Button(self.window, text="Practicar gratitud", font=FONT_BOLD)
+        depresion = Button(self.window, text="Gratitud", font=FONT_BOLD)
         depresion.place(relx=0.814, rely=0.48, relheight=0.15, relwidth=0.18)
 
         # Boton S.O.S
-        xxx = Button(self.window, text="S.O.S", font=FONT_BOLD)
+        xxx = Button(self.window, text="S.O.S", font=FONT_BOLD, command=lambda: self.sos(None))
         xxx.place(relx=0.814, rely=0.67, relheight=0.15, relwidth=0.18)
         
         # scroll bar
@@ -103,6 +103,14 @@ class MasterPanel:
         print("Entra")
         self.window.destroy()
         Diario()
+    
+    def sos (self,event):
+        sos = ("Mi sistema de S.O.S ha sido activado por una emergencia, si este es el caso aqui hay algunas cosas que puedes probar:  \n\nAtaque de ansiedad: \nhttps://www.sanitas.es/sanitas/seguros/es/particulares/biblioteca-de-salud/psicologia-psiquiatria/estres-ansiedad/como-actuar-crisis-ansiedad.html \n\nTelefono de la Esperanza-Barranquilla:\n(00 57 5) 372 27 27 \n \nTelefono de la Esparanza-Bogota:\n(57-1) 323 24 25 ")
+        self._insert_message(sos, "Psybot")
+    
+    def test (self, event):
+        test = ("En el siguiente link podras encontrar un test que te permitira comprender como te has sentido recientemiente, una vez lo hayas hecho por favor introduce los resultados:\nhttps://www.nhs.uk/mental-health/self-help/guides-tools-and-activities/depression-anxiety-self-assessment-quiz/")
+        self._insert_message(test, "Psybot")
 
 class Diario:
     def __init__(self):        
@@ -142,16 +150,42 @@ class Diario:
         self.msg_entry = Entry(contenedor, bg="#512E5F", fg=TEXT_COLOR, font=FONT)
         self.msg_entry.place(relwidth=0.74, relheight=0.06, rely=0.008, relx=0.011)
         self.msg_entry.focus()
-        self.msg_entry.bind("<Return>", self._on_enter_pressed)
+        self.msg_entry.bind("<Return>", self.guardar_entrada)
         
-        # enviar
-        enviar = Button(contenedor, text="Guardar", font=FONT_BOLD, width=20, bg=BG_GRAY,
-                             command=lambda: self._on_enter_pressed(None))
-        enviar.place(relx=0.77, rely=0.008, relheight=0.06, relwidth=0.22)
-     
-    def _on_enter_pressed(self, event):
+        # guardar
+        guardar = Button(contenedor, text="Guardar", font=FONT_BOLD, width=20, bg=BG_GRAY,
+                             command=lambda: self.guardar_entrada(None))
+        guardar.place(relx=0.77, rely=0.008, relheight=0.025, relwidth=0.22)
+
+        # mostrar
+        mostrar = Button(contenedor, text="Historial", font=FONT_BOLD, width=20, bg=BG_GRAY,
+                             command=lambda: self.mostrar_entradas(None))
+        mostrar.place(relx=0.77, rely=0.04, relheight=0.025, relwidth=0.22)
+
+        # volver
+
+        volver = Button(self.ventana, text="<-", font=FONT_BOLD, command=lambda: self.volver(None))
+        volver.place(relx=0.01, rely=0.01, relheight=0.05, relwidth=0.08)
+
+
+    def volver(self, event):
+        print("Entra")
+        self.ventana.destroy()
+        MasterPanel()
+
+    def mostrar_entradas(self, event):
+        hist = open("diario.txt", "r")
+        hist2 = hist.read()
+        self._insert_message(hist2, "Psybot")
+        hist.close()
+
+    def guardar_entrada(self, event):
         msg = self.msg_entry.get()
+        file = open("diario.txt", "a")
+        file.write(msg + "\n")
+        file.close()
         self._insert_message(msg, "Entrada")
+
 
     def _insert_message(self, msg, sender):
         if not msg:
@@ -167,3 +201,7 @@ class Diario:
 
     def run (self):
         self.ventana.mainloop()
+
+
+       
+    
