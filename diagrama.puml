@@ -1,0 +1,40 @@
+@startuml
+class Chatbot{
+  String lista_toDo
+  String diario_emociones
+  String decir_afirmacion()
+  String dato_curioso()
+  String mostrar_respuestas()
+  String responder()
+}
+
+class Diario{
+   String diario_emociones
+   String guardar_entrada()
+   String mostrar_historial()
+   borrar_entrada()
+}
+class Usuario{
+  String nombre
+  integer puntaje_depresion
+  integer puntaje_ansiedad
+  integer test_depresion()
+  integer test_ansiedad()
+}
+class Estado{
+  integer puntaje_ansiedad
+  integer puntaje_depresion
+}
+class Depresion{
+  String mostrar_puntaje()
+}
+class Ansiedad{
+  String mostrar_puntaje()
+}
+
+Usuario <|-- Estado
+Estado *-- Depresion
+Estado *-- Ansiedad
+Chatbot *-- Diario
+Usuario -- Chatbot
+@enduml
