@@ -14,17 +14,17 @@ FONT_BOLD = "Helvetica 13 bold"
 
 class MasterPanel:
     
-    def __init__(self):
-        self.window = Tk()
+    def __init__(self): 
+        self.window = Tk() #Creamos la root
         self._setup_main_window()
         
     def run(self):
         self.window.mainloop()
         
     def _setup_main_window(self):
-        self.window.title("Pysbot")
+        self.window.title("Pysbot") #Creamos el titulo
         self.window.resizable(width=False, height=False)
-        self.window.configure(width=470, height=550, bg=mayor)
+        self.window.configure(width=470, height=550, bg=mayor) #Cpnfiguramos el ventana
         
         # Titulo
         Titulo = Label(self.window, bg=mayor, fg=grih,
@@ -91,17 +91,17 @@ class MasterPanel:
 
         
     def nopm(self, event):
-        pygame.mixer.music.stop()
+        pygame.mixer.music.stop() #Paramos la musica
 
     def pm(self, event):
-           pygame.mixer.music.load("Psy\Chatbot\musica\musica.mp3")
-           pygame.mixer.music.play(loops=0)
+           pygame.mixer.music.load("Psy\Chatbot\musica\musica.mp3") #Ingresamos la pista de audio
+           pygame.mixer.music.play(loops=0) #Iniciamos la musica
      
-    def _on_enter_pressed(self, event):
+    def _on_enter_pressed(self, event): #Mostramos el mensaje en pantalla 
         msg = self.msg_entry.get()
         self._insert_message(msg, "Tu")
         
-    def _insert_message(self, msg, sender):
+    def _insert_message(self, msg, sender): #Recogemos el mensaje que debe mostrar el chatbot
         if not msg:
             return
         
@@ -197,17 +197,17 @@ class Diario:
         MasterPanel()
 
     def mostrar_entradas(self, event):
-        hist = open("diario.txt", "r")
+        hist = open("diario.txt", "r") #Abrimos el diario como lectura
         hist2 = hist.read()
-        self._insert_message(hist2, "Psybot")
+        self._insert_message(hist2, "Psybot") #Ingresamos las entradas en pantalla
         hist.close()
 
     def guardar_entrada(self, event):
         msg = self.msg_entry.get()
-        file = open("diario.txt", "a")
+        file = open("diario.txt", "a") #Abrimos el diario como escritura
         file.write(msg + "\n")
         file.close()
-        self._insert_message(msg, "Entrada")
+        self._insert_message(msg, "Entrada") #Mostramos el mensaje en pantalla
 
 
     def _insert_message(self, msg, sender):
@@ -224,9 +224,3 @@ class Diario:
 
     def run (self):
         self.ventana.mainloop()
-
-
-       
-    
-     
-        
