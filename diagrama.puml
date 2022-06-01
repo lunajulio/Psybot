@@ -1,40 +1,51 @@
 @startuml
-class Chatbot{
-  String lista_toDo
-  String diario_emociones
-  String decir_afirmacion()
-  String dato_curioso()
-  String mostrar_respuestas()
-  String responder()
+class MasterPanel{
+  Tk window
+  nopm()
+  pm()
+  String _on_enter_pressed()
+  String _insert_message()
+  String gratitud()
+  String abrirdiario()
+  String test()
+  String sos()
 }
 
 class Diario{
-   String diario_emociones
-   String guardar_entrada()
-   String mostrar_historial()
-   borrar_entrada()
+  Tk ventana
+  volver()
+  mostrar_entradas()
+  guardar_entrada()
+  String _insert_message()
 }
-class Usuario{
-  String nombre
-  integer puntaje_depresion
-  integer puntaje_ansiedad
-  integer test_depresion()
-  integer test_ansiedad()
-}
-class Estado{
-  integer puntaje_ansiedad
-  integer puntaje_depresion
-}
-class Depresion{
-  String mostrar_puntaje()
-}
-class Ansiedad{
-  String mostrar_puntaje()
+class App{
+  Tk ventana
+  Tk reg
+  String username_info
+  String password_info
+  verificar()
+  Registrar_Usuario()
+  registrar()
 }
 
-Usuario <|-- Estado
-Estado *-- Depresion
-Estado *-- Ansiedad
-Chatbot *-- Diario
-Usuario -- Chatbot
+class NeuralNet{
+  l1
+  l2
+  l3
+  relu
+  forward()
+}
+class chatDatabase{
+  LinkedList samples
+  LinkedList x_data
+  LinkedList y_data
+  LinkedList _getitem_()
+  LinkedList _len_()
+  
+}
+
+App*-- MasterPanel
+MasterPanel*-- Diario
+NeuralNet -- chatDatabase
+chatDatabase -- MasterPanel
 @enduml
